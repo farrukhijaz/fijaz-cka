@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: 2019-10-05T00:30:43Z
+  labels:
+    name: webapp-pod
+  name: webapp-pod
+  namespace: default
+  resourceVersion: "1797"
+  selfLink: /api/v1/namespaces/default/pods/webapp-pod
+  uid: 5dd947ca-e707-11e9-bbfa-0242ac11000a
+spec:
+  containers:
+  - image: kodekloud/simple-webapp-mysql
+    imagePullPolicy: Always
+    name: webapp
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    envFrom:
+      - secretRef:
+          name: db-secret
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-n7c22
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  nodeName: node01
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  - name: default-token-n7c22
+    secret:
+      defaultMode: 420
+      secretName: default-token-n7c22
+
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2019-10-05T00:30:43Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2019-10-05T00:30:50Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: 2019-10-05T00:30:43Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://7a849a2124396d1b2a83b83e1bca8744f8a9bd71f2788c1c86d481cb6ce31937
+    image: kodekloud/simple-webapp-mysql:latest
+    imageID: docker-pullable://kodekloud/simple-webapp-mysql@sha256:92943d2b3ea4a1db7c8a9529cd5786ae3b9999e0246ab665c29922e9800d1b41
+    lastState: {}
+    name: webapp
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2019-10-05T00:30:50Z
+  hostIP: 172.17.0.17
+  phase: Running
+  podIP: 10.40.0.1
+  qosClass: BestEffort
+  startTime: 2019-10-05T00:30:43Z

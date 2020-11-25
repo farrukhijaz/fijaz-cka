@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  namespace: default
+  name: storage-admin
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["persistentvolumes"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+- apiGroups: ["storage.k8s.io"] # "" indicates the core API group
+  resources: ["storageclasses"]
+  verbs: ["get", "watch", "list", "create", "delete"]

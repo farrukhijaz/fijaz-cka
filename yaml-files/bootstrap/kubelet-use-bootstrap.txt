@@ -1,0 +1,16 @@
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/kubernetes/kubernetes
+
+[Service]
+ExecStart=/usr/bin/kubelet \
+  --bootstrap-kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig \
+  --kubeconfig=/var/lib/kubelet/kubeconfig \
+  --register-node=true \
+  --v=2
+Restart=on-failure
+StandardOutput=file:/var/kubeletlog1.log
+StandardError=file:/var/kubeletlog2.log
+RestartSec=5
+
+--bootstrap-kubeconfig="/var/lib/kubelet/bootstrap-kubeconfig" --kubeconfig="/var/lib/kubelet/kubeconfig"
